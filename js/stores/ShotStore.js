@@ -4,7 +4,6 @@ var Store = require('./Store');
 var ActionTypes = require('../constants/Constants').ActionTypes;
 
 var _shots = {};
-var _activeShotId = null;
 
 var ShotStore = merge(Store, {
   getAll: function() {
@@ -12,10 +11,19 @@ var ShotStore = merge(Store, {
     for (var k in _shots) {
       shotArr.push(_shots[k]);
     }
+    shotArr.reverse();
     return shotArr;
   },
   getActive: function() {
-    return _shots[_activeShotId];
+    var foundShot = null;
+    for (var k in _shots) {
+      var shot = _shots[k];
+      if (shot.isActive) {
+        foundShot = shot;
+        break;
+      }
+    }
+    return foundShot;
   }
 });
 
@@ -23,7 +31,8 @@ function _create(shot) {
   return {
     id: shot.id,
     image: shot.image_url,
-    teaser: shot.image_teaser_url
+    teaser: shot.image_teaser_url,
+    isActive: false
   };
 }
 
@@ -35,8 +44,12 @@ function _addShots(rawShots) {
   });
 }
 
-function _setActive(index) {
-  _activeShotId = ShotStore.getAll()[index].id;
+function _setActive(id) {
+  for (var k in _shots) {
+    _shots[k].isActive = false;
+  }
+
+  _shots[id].isActive = true;
 }
 
 ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -46,12 +59,11 @@ ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.RECIEVE_RAW_SHOTS:
       _addShots(action.rawShots);
-      _setActive(0);
       ShotStore.emitChange();
       break;
 
     case ActionTypes.SET_ACTIVE_SHOT:
-      _setActive(action.index);
+      _setActive(action.id);
       ShotStore.emitChange();
       break;
 

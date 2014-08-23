@@ -2,10 +2,10 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Constants = require('../constants/Constants');
 
 var ShotActionCreators = {
-  setActiveShot: function(index) {
+  setActive: function(id) {
     var action = {
       type: Constants.ActionTypes.SET_ACTIVE_SHOT,
-      index: index
+      id: id
     };
     AppDispatcher.handleViewAction(action);
   },

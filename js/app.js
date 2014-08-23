@@ -21,9 +21,9 @@ var App = React.createClass({
     }
   },
   _onChange: function() {
+    console.log("onchange");
     this.setState({
-      shots: ShotStore.getAll(),
-      activeShot: ShotStore.getActive()
+      shots: ShotStore.getAll()
     });
   },
   _poll: null,
@@ -36,7 +36,8 @@ var App = React.createClass({
   render: function() {
     return(
       <div>
-        <Bigshot shot={this.state.activeShot}/>
+      
+        <Bigshot/>
 
         <div className="shottie-list">
           {this.state.shots.map(function(shot) {
