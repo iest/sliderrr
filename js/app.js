@@ -6,18 +6,25 @@ var React = require('react');
 window.React = React; // This is so you can use the chrome react inspector
 
 var ShotStore = require('./stores/ShotStore');
+var ShotActionCreators = require('./actions/ShotActionCreators');
 var WebAPI = require('./utils/WebAPI');
+var Bigshot = require('./components/Bigshot');
+var Shottie = require('./components/Shottie');
 
 WebAPI.getShots();
 
 var App = React.createClass({
   getInitialState: function() {
     return {
-      shots: []
+      shots: [],
+      activeShot: null
     }
   },
   _onChange: function() {
-    this.setState({shots: ShotStore.getAll()});
+    this.setState({
+      shots: ShotStore.getAll(),
+      activeShot: ShotStore.getActive()
+    });
   },
   _poll: null,
   _startPoll: function() {
@@ -29,10 +36,13 @@ var App = React.createClass({
   render: function() {
     return(
       <div>
-        {this.state.shots.map(function(shot) {
-          var src = shot.image_url;
-          return <img src={src} key={shot.id}/>;
-        })}
+        <Bigshot shot={this.state.activeShot}/>
+
+        <div className="shottie-list">
+          {this.state.shots.map(function(shot) {
+            return <Shottie shot={shot} key={shot.id}/>;
+          })}
+        </div>
       </div>
     );
   },
