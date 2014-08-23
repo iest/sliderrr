@@ -1,4 +1,9 @@
 /**
+ * TODO:
+ * - Create slideshow method
+ *   - Set first active bigshot
+ *   - After timeout, select next shot
+ * 
  * @jsx React.DOM
  */
 
@@ -18,10 +23,9 @@ var App = React.createClass({
     return {
       shots: [],
       activeShot: null
-    }
+    };
   },
   _onChange: function() {
-    console.log("onchange");
     this.setState({
       shots: ShotStore.getAll()
     });

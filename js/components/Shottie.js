@@ -18,9 +18,12 @@ var Shottie = React.createClass({
 
     if (!shot) return null;
 
+    var gif = <span>GIF</span>;
+
     return(
       <a onClick={this.handleClick} className="shottie">
         <img src={shot.teaser} />
+        {shot.isGif ? gif:null}
       </a>
     );
   }

@@ -32,7 +32,8 @@ function _create(shot) {
     id: shot.id,
     image: shot.image_url,
     teaser: shot.image_teaser_url,
-    isActive: false
+    isActive: false,
+    isGif: /\.gif$/.test(shot.image_url)
   };
 }
 

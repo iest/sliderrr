@@ -2,9 +2,6 @@
 
 A simple dribbble viewer built in React & node.
 
-## TODO
-- Click a shottie to change the bigshot
-
 ## Animation TODO
 - Bigshot when it changes
 - Shotties when changing the bigshot

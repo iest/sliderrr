@@ -8,6 +8,7 @@ body
   background #333
   height 100%
   position relative
+  font 1em/1.5 "Avenir Next"
 
 img
   height 100%
@@ -21,7 +22,7 @@ img
 .bigshot__low
   // 
 .bigshot__high
-  position absolute
+  margin-top -90vh
   top 0
 
 .shottie-list
@@ -33,8 +34,22 @@ img
   white-space nowrap
 
 .shottie
+  position relative
   cursor pointer
   display inline-block
   height 10vh
   width (@height * (4/3))vh // 4:3 ratio
   background #999
+  span
+    position absolute
+    color white
+    background black
+    border-radius 3px
+    line-height 1.2
+    padding 0.3em
+    display block
+    top 0.25em
+    right 0.25em
+    font-size 0.5em
+    font-weight bold
+    opacity 0.5
