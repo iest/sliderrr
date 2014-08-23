@@ -4,6 +4,9 @@ var ActionTypes = Constants.ActionTypes;
 var WebAPI;
 setTimeout(function() {
    WebAPI = require('../utils/WebAPI');
+   // For some retarded reason, browserify dones't handle cyclical
+   // dependancies. So have to wait for the next tick before defining
+   // this one...
 }, 0);
 
 var ShotActionCreators = {

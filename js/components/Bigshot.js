@@ -26,6 +26,7 @@ var Bigshot = React.createClass({
       <div className="bigshot">
         <img className="bigshot__low" src={shot.teaser} />
         <img className="bigshot__high" src={shot.image} />
+        <a href={shot.originalPage}>Original</a>
       </div>
     );
   },

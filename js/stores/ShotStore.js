@@ -8,7 +8,7 @@ var _shots = {};
 _shots[ShotCategories.EVERYONE] = {};
 _shots[ShotCategories.DEBUTS] = {};
 _shots[ShotCategories.POPULAR] = {};
-var _currentShotCategory = ShotCategories.EVERYONE;
+var _currentShotCategory = ShotCategories.POPULAR;
 
 var ShotStore = merge(Store, {
   getCurrentShotCategory: function() {
@@ -45,6 +45,7 @@ function _create(shot) {
     id: shot.id,
     image: shot.image_url,
     teaser: shot.image_teaser_url,
+    originalPage: shot.url,
     isActive: false,
     isGif: /\.gif$/.test(shot.image_url)
   };
