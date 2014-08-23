@@ -2,22 +2,35 @@ var merge = require('react/lib/merge');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Store = require('./Store');
 var ActionTypes = require('../constants/Constants').ActionTypes;
+var ShotCategories = require('../constants/Constants').ShotCategories;
 
 var _shots = {};
+_shots[ShotCategories.EVERYONE] = {};
+_shots[ShotCategories.DEBUTS] = {};
+_shots[ShotCategories.POPULAR] = {};
+var _currentShotCategory = ShotCategories.EVERYONE;
 
 var ShotStore = merge(Store, {
+  getCurrentShotCategory: function() {
+    return _currentShotCategory;
+  },
   getAll: function() {
     var shotArr = [];
-    for (var k in _shots) {
-      shotArr.push(_shots[k]);
+    var shotCategory = _shots[_currentShotCategory];
+    for (var k in shotCategory) {
+      shotArr.push(shotCategory[k]);
     }
     shotArr.reverse();
     return shotArr;
   },
   getActive: function() {
     var foundShot = null;
-    for (var k in _shots) {
-      var shot = _shots[k];
+    var shotCategory = _shots[_currentShotCategory];
+    for (var k in shotCategory) {
+      var shot = shotCategory[k];
+
+      if (!shot) break;
+
       if (shot.isActive) {
         foundShot = shot;
         break;
@@ -37,20 +50,21 @@ function _create(shot) {
   };
 }
 
-function _addShots(rawShots) {
+function _addShots(rawShots, category) {
+  var shotCategory = _shots[category];
   rawShots.forEach(function(shot) {
-    if (!_shots[shot.id]) {
-      _shots[shot.id] = _create(shot);
+    if (!shotCategory[shot.id]) {
+      shotCategory[shot.id] = _create(shot);
     }
   });
 }
 
 function _setActive(id) {
-  for (var k in _shots) {
-    _shots[k].isActive = false;
+  var shotCategory = _shots[_currentShotCategory];
+  for (var k in shotCategory) {
+    shotCategory[k].isActive = false;
   }
-
-  _shots[id].isActive = true;
+  shotCategory[id].isActive = true;
 }
 
 ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -59,7 +73,7 @@ ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch (action.type) {
 
     case ActionTypes.RECIEVE_RAW_SHOTS:
-      _addShots(action.rawShots);
+      _addShots(action.rawShots, action.shotCategory);
       ShotStore.emitChange();
       break;
 

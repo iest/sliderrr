@@ -15,7 +15,7 @@ var Bigshot = React.createClass({
   _onChange: function() {
     this.setState({
       shot: ShotStore.getActive()
-    })
+    });
   },
   render: function() {
     var shot = this.state.shot;

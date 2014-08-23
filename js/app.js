@@ -16,7 +16,7 @@ var WebAPI = require('./utils/WebAPI');
 var Bigshot = require('./components/Bigshot');
 var Shottie = require('./components/Shottie');
 
-WebAPI.getShots();
+WebAPI.init();
 
 var App = React.createClass({
   getInitialState: function() {
@@ -30,13 +30,6 @@ var App = React.createClass({
       shots: ShotStore.getAll()
     });
   },
-  _poll: null,
-  _startPoll: function() {
-    this._poll = setInterval(WebAPI.getShots, 5000);
-  },
-  _stopPoll: function() {
-    clearInterval(this._poll);
-  },
   render: function() {
     return(
       <div>
@@ -45,7 +38,12 @@ var App = React.createClass({
 
         <div className="shottie-list">
           {this.state.shots.map(function(shot) {
-            return <Shottie shot={shot} key={shot.id}/>;
+            if (!shot) {
+              return null;
+            }
+            else {
+              return <Shottie shot={shot} key={shot.id}/>;
+            }
           })}
         </div>
       </div>
@@ -53,11 +51,9 @@ var App = React.createClass({
   },
   componentDidMount: function() {
     ShotStore.addChangeListener(this._onChange);
-    this._startPoll();
   },
   componentWillUnmount: function() {
     ShotStore.removeChangeListener(this._onChange);
-    this._stopPoll();
   }
 });
 

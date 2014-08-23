@@ -3,8 +3,8 @@
  */
 
 var React = require('react');
-
 var ShotActionCreators = require('../actions/ShotActionCreators');
+var Icon = require('./Icon');
 
 var Shottie = React.createClass({
   propTypes: {
@@ -20,12 +20,20 @@ var Shottie = React.createClass({
 
     var gif = <span>GIF</span>;
 
-    return(
-      <a onClick={this.handleClick} className="shottie">
-        <img src={shot.teaser} />
-        {shot.isGif ? gif:null}
-      </a>
-    );
+    if (shot.isActive) {
+      return(
+        <a className="shottie shottie--active">
+          <Icon name="arrow"/>
+        </a>
+      );
+    } else {
+      return(
+        <a onClick={this.handleClick} className="shottie">
+          <img src={shot.teaser} />
+          {shot.isGif ? gif:null}
+        </a>
+      );
+    }
   }
 });
 

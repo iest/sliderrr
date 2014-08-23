@@ -1,15 +1,28 @@
 var ajax = require('superagent');
-
+var io = require('socket.io-client');
 var ShotActionCreators = require('../actions/ShotActionCreators');
+var Constants = require('../constants/Constants');
+var SocketEvents = Constants.SocketEvents;
+var ShotCategories = Constants.ShotCategories;
+var socket = io();
 
 module.exports = {
-  getShots: function() {
-    ajax
-      .get('/api/popular')
-      .end(function(res) {
-        var rawShots = res.body;
-        ShotActionCreators.recieveAll(rawShots);
-      });
+  init: function() {
+    socket.on(SocketEvents.EVERYONE_UPDATED, function(shots) {
+      ShotActionCreators.recieveAll(shots, ShotCategories.EVERYONE);
+    });
+    socket.on(SocketEvents.POPULAR_UPDATED, function(shots) {
+      ShotActionCreators.recieveAll(shots, ShotCategories.POPULAR);
+    });
+    socket.on(SocketEvents.DEBUTS_UPDATED, function(shots) {
+      ShotActionCreators.recieveAll(shots, ShotCategories.DEBUTS);
+    });
+    socket.on(SocketEvents.SET_ACTIVE_SHOT, function(id) {
+      ShotActionCreators.setActiveFromServer(id);
+    });
+  },
+  emitShotActivated: function(id) {
+    socket.emit(SocketEvents.SET_ACTIVE_SHOT, id);
   }
 };
 

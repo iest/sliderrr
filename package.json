@@ -10,6 +10,8 @@
     "lodash": "^2.4.1",
     "nib": "^1.0.3",
     "react": "~0.11.0",
+    "socket.io": "^1.0.6",
+    "socket.io-client": "^1.0.6",
     "stylus": "^0.48.1",
     "superagent": "^0.18.2"
   },

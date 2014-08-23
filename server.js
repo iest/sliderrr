@@ -1,7 +1,16 @@
+/**
+ * TODO:
+ * - Allow a different client to change the current active image 
+ * - Allow a different client to change the current active list
+ */
+
 var $ = require('lodash');
 var express = require('express');
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var ajax = require('superagent');
+var SocketEvents = require('./js/constants/Constants').SocketEvents;
 
 var stylus = require("stylus");
 var nib = require("nib");
@@ -26,15 +35,28 @@ var _debuts = [];
 
 function addToEveryone(shotsArr) {
   _everyone = $.union(_everyone, shotsArr);
+  io.emit(SocketEvents.EVERYONE_UPDATED, _everyone);
 }
 
 function addToPopular(shotsArr) {
   _popular = $.union(_popular, shotsArr);
+  io.emit(SocketEvents.POPULAR_UPDATED, _popular);
 }
 
 function addToDebuts(shotsArr) {
   _debuts = $.union(_debuts, shotsArr);
+  io.emit(SocketEvents.DEBUTS_UPDATED, _debuts);
 }
+
+io.on('connection', function(socket) {
+  socket.emit(SocketEvents.EVERYONE_UPDATED, _everyone);
+  socket.emit(SocketEvents.POPULAR_UPDATED, _popular);
+  socket.emit(SocketEvents.DEBUTS_UPDATED, _debuts);
+
+  socket.on(SocketEvents.SET_ACTIVE_SHOT, function(id) {
+    io.emit(SocketEvents.SET_ACTIVE_SHOT, id);
+  });
+});
 
 
 /**
@@ -91,19 +113,6 @@ function updateDebuts() {
     });
 }
 
-// API Methods
-app.get('/api/everyone', function(req, res) {
-  res.send(_everyone);
-});
-
-app.get('/api/popular', function(req, res) {
-  res.send(_popular);
-});
-
-app.get('/api/debuts', function(req, res) {
-  res.send(_debuts);
-});
-
 getAllShots();
 setInterval(function() {
   updateEveryone();
@@ -111,6 +120,6 @@ setInterval(function() {
   updateDebuts();
 }, 10000);
 
-var server = app.listen(8080, function() {
-  console.log('Listening on port %d', server.address().port);
+http.listen(8080, function() {
+  console.log('Listening on port %d', http.address().port);
 });
