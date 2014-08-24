@@ -59,15 +59,14 @@ function addToDebuts(shotsArr) {
 }
 
 var openSockets = 0;
-var _sockets = {};
+var _totalSockets = 0;
 
 io.on('connection', function(socket) {
-  var clientIp = socket.request.connection.remoteAddress;
-  _sockets[clientIp] = "open";
-
-  fs.writeFile("./sockets.txt", JSON.stringify(_sockets));
-
   openSockets++;
+  _totalSockets++;
+
+  fs.writeFile("./total_sockets.txt", _totalSockets);
+
   socket.emit(SocketEvents.ALL_UPDATED, {
     everyone: _everyone,
     debuts: _debuts,
@@ -80,8 +79,6 @@ io.on('connection', function(socket) {
   });
   socket.on('disconnect', function(socket) {
     openSockets--;
-    _sockets[clientIp] = "closed";
-    fs.writeFile("./sockets.txt", JSON.stringify(_sockets));
     io.emit(SocketEvents.SOCKET_COUNT_UPDATED, openSockets);
   });
 });
