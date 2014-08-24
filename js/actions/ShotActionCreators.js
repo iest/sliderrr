@@ -32,14 +32,6 @@ var ShotActionCreators = {
       shotCategory: shotCategory
     };
     AppDispatcher.handleServerAction(action);
-  },
-  recieveSocketCount: function(count) {
-    console.log("count", count);
-    var action = {
-      type: ActionTypes.RECIEVE_SOCKET_COUNT,
-      count: count
-    };
-    AppDispatcher.handleServerAction(action);
   }
 };
 

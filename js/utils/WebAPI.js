@@ -1,6 +1,7 @@
 var ajax = require('superagent');
 var io = require('socket.io-client');
 var ShotActionCreators = require('../actions/ShotActionCreators');
+var SocketActionCreators = require('../actions/SocketActionCreators');
 var Constants = require('../constants/Constants');
 var SocketEvents = Constants.SocketEvents;
 var ShotCategories = Constants.ShotCategories;
@@ -21,7 +22,7 @@ module.exports = {
       ShotActionCreators.setActiveFromServer(id);
     });
     socket.on(SocketEvents.SOCKET_COUNT_UPDATED, function(count) {
-      ShotActionCreators.recieveSocketCount(count);
+      SocketActionCreators.recieveSocketCount(count);
     });
   },
   emitShotActivated: function(id) {

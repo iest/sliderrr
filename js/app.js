@@ -13,8 +13,10 @@ window.React = React; // This is so you can use the chrome react inspector
 var ShotStore = require('./stores/ShotStore');
 var ShotActionCreators = require('./actions/ShotActionCreators');
 var WebAPI = require('./utils/WebAPI');
+
 var Bigshot = require('./components/Bigshot');
 var Shottie = require('./components/Shottie');
+var SocketState = require('./components/SocketState');
 
 WebAPI.initSocketHandlers();
 
@@ -33,6 +35,8 @@ var App = React.createClass({
   render: function() {
     return(
       <div>
+
+        <SocketState/>
       
         <Bigshot/>
 
