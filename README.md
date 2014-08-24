@@ -1,8 +1,14 @@
 # Sliderrr
 
-A collaborative dribbble viewer.
+A cross-device, collaborative dribbble slideshow viewer thing.
 
-Check out the demo site: [sliderrr.iestynwilliams.net](http://sliderrr.iestynwilliams.net).
+### Demo
+
+**Check out the demo site: [sliderrr.iestynwilliams.net](http://sliderrr.iestynwilliams.net)**.
+
+- Open the [demo site](sliderrr.iestynwilliams.net) in two browser windows
+- Select an image from the carousel in one of the windows
+- Clap with glee as both windows show the same image!
 
 #### Tech:
 
@@ -16,8 +22,8 @@ One of the designers at work said it would be cool to have a dribbble feed on on
 I'm always looking for an excuse to grok new technologies, and React+Flux are very interesting to me at the moment. I've also never really used web sockets before, so wanted to try them out!
 
 ## TODO
-- [ ] Loading state when selecting an image (takes a while to load the full images)
 - [ ] On load, get the current active bigshot (if there is one), else randomly select one
+- [ ] Loading state when selecting an image (takes a while to load the full images)
 - [ ] Slideshow between images
 - [ ] Ability to select different shot categories
 
