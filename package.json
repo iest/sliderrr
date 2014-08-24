@@ -1,6 +1,6 @@
 {
   "name": "popppular",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Simple dribbble slideshow",
   "private": true,
   "main": "js/app.js",
