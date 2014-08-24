@@ -2,6 +2,8 @@
 
 A collaborative dribbble viewer.
 
+Check out the demo site: [sliderrr.iestynwilliams.net](http://sliderrr.iestynwilliams.net).
+
 #### Tech:
 
 - Node with Express & Socket.io on the server
@@ -10,8 +12,8 @@ A collaborative dribbble viewer.
 
 #### Why?
 
-I'm always looking for an excuse to grok new technologies, and one thing that was suggested at work was to have a dribbble feed on one of the TVs.
-So that's step 1, but then I started thinking "How could you interact with it?" — hence step 2 with socket.io!
+One of the designers at work said it would be cool to have a dribbble feed on one of our TVs, so I thought I'd have a go at building one.
+I'm always looking for an excuse to grok new technologies, and React+Flux are very interesting to me at the moment. I've also never really used web sockets before, so wanted to try them out.
 
 ## Animation TODO
 
