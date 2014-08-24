@@ -1,6 +1,6 @@
 # Popppular
 
-A dribbble viewer built.
+A collaborative dribbble viewer.
 
 #### Tech:
 
@@ -22,13 +22,13 @@ So that's step 1, but then I started thinking "How could you interact with it?" 
 ### Getting it up and running
 
 1. Download the latest release and unzip
-2. `cd popppular`
+2. `cd sliderrr`
 3. `node server.js &`
 4. Hit `yourserveraddress:8080`
 
 ### Developing locally
 
-1. `git clone git@github.com:iest/popppular.git`
-2. `cd popppular`
+1. `git clone git@github.com:iest/sliderrr.git`
+2. `cd sliderrr`
 3. `npm install`
 4. `node server.js`

@@ -6,7 +6,7 @@ setTimeout(function() {
    WebAPI = require('../utils/WebAPI');
    // For some retarded reason, browserify dones't handle cyclical
    // dependancies. So have to wait for the next tick before defining
-   // this one...
+   // WebAPI. This is OK because it's only used when `setActive` is run.
 }, 0);
 
 var ShotActionCreators = {
@@ -30,6 +30,14 @@ var ShotActionCreators = {
       type: ActionTypes.RECIEVE_RAW_SHOTS,
       rawShots: rawShots,
       shotCategory: shotCategory
+    };
+    AppDispatcher.handleServerAction(action);
+  },
+  recieveSocketCount: function(count) {
+    console.log("count", count);
+    var action = {
+      type: ActionTypes.RECIEVE_SOCKET_COUNT,
+      count: count
     };
     AppDispatcher.handleServerAction(action);
   }

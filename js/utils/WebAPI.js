@@ -7,7 +7,7 @@ var ShotCategories = Constants.ShotCategories;
 var socket = io();
 
 module.exports = {
-  init: function() {
+  initSocketHandlers: function() {
     socket.on(SocketEvents.EVERYONE_UPDATED, function(shots) {
       ShotActionCreators.recieveAll(shots, ShotCategories.EVERYONE);
     });
@@ -19,6 +19,9 @@ module.exports = {
     });
     socket.on(SocketEvents.SET_ACTIVE_SHOT, function(id) {
       ShotActionCreators.setActiveFromServer(id);
+    });
+    socket.on(SocketEvents.SOCKET_COUNT_UPDATED, function(count) {
+      ShotActionCreators.recieveSocketCount(count);
     });
   },
   emitShotActivated: function(id) {

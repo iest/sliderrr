@@ -48,13 +48,21 @@ function addToDebuts(shotsArr) {
   io.emit(SocketEvents.DEBUTS_UPDATED, _debuts);
 }
 
+var openSockets = 0;
+
 io.on('connection', function(socket) {
+  openSockets++;
   socket.emit(SocketEvents.EVERYONE_UPDATED, _everyone);
   socket.emit(SocketEvents.POPULAR_UPDATED, _popular);
   socket.emit(SocketEvents.DEBUTS_UPDATED, _debuts);
+  io.emit(SocketEvents.SOCKET_COUNT_UPDATED, openSockets);
 
   socket.on(SocketEvents.SET_ACTIVE_SHOT, function(id) {
     io.emit(SocketEvents.SET_ACTIVE_SHOT, id);
+  });
+  socket.on('disconnect', function() {
+    openSockets--;
+    io.emit(SocketEvents.SOCKET_COUNT_UPDATED, openSockets);
   });
 });
 

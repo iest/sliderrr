@@ -16,7 +16,7 @@ var WebAPI = require('./utils/WebAPI');
 var Bigshot = require('./components/Bigshot');
 var Shottie = require('./components/Shottie');
 
-WebAPI.init();
+WebAPI.initSocketHandlers();
 
 var App = React.createClass({
   getInitialState: function() {
