@@ -10,10 +10,13 @@
     "lodash": "^2.4.1",
     "nib": "^1.0.3",
     "react": "~0.11.0",
+    "react-imageloader": "^1.0.5",
+    "react-loadermixin": "^1.0.4",
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
     "stylus": "^0.48.1",
-    "superagent": "^0.18.2"
+    "superagent": "^0.18.2",
+    "xtend": "^4.0.0"
   },
   "devDependencies": {
     "browserify": "~2.36.0",

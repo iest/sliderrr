@@ -1,4 +1,4 @@
-var merge = require('react/lib/merge');
+var merge = require('xtend');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Store = require('./Store');
 var ActionTypes = require('../constants/Constants').ActionTypes;
@@ -68,6 +68,10 @@ function _addShotsByObject(shotObj) {
   _addShots(shotObj[E], E);
   _addShots(shotObj[D], D);
   _addShots(shotObj[P], P);
+
+  if (shotObj.activeShotId) {
+    _setActive(shotObj.activeShotId);
+  }
 }
 
 function _setActive(id) {
@@ -80,7 +84,7 @@ function _setActive(id) {
 
 ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
-  console.debug("ACTION", action);
+
   switch (action.type) {
 
     case ActionTypes.RECIEVE_SHOT_OBJECT:

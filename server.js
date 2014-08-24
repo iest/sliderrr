@@ -59,24 +59,25 @@ function addToDebuts(shotsArr) {
 }
 
 var openSockets = 0;
-var _totalSockets = 0;
+var _activeShotId = null;
 
 io.on('connection', function(socket) {
   openSockets++;
-  _totalSockets++;
-
-  fs.writeFile("./total_sockets.txt", _totalSockets);
+  io.emit(SocketEvents.SOCKET_COUNT_UPDATED, openSockets);
 
   socket.emit(SocketEvents.ALL_UPDATED, {
     everyone: _everyone,
     debuts: _debuts,
-    popular: _popular
+    popular: _popular,
+    activeShotId: _activeShotId
   });
-  io.emit(SocketEvents.SOCKET_COUNT_UPDATED, openSockets);
 
+  
   socket.on(SocketEvents.SET_ACTIVE_SHOT, function(id) {
+    _activeShotId = id;
     io.emit(SocketEvents.SET_ACTIVE_SHOT, id);
   });
+
   socket.on('disconnect', function(socket) {
     openSockets--;
     io.emit(SocketEvents.SOCKET_COUNT_UPDATED, openSockets);

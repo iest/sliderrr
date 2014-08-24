@@ -17,6 +17,7 @@ var WebAPI = require('./utils/WebAPI');
 var Bigshot = require('./components/Bigshot');
 var Shottie = require('./components/Shottie');
 var SocketState = require('./components/SocketState');
+var AnimGroup = require('react/lib/ReactCSSTransitionGroup');
 
 WebAPI.initSocketHandlers();
 
@@ -41,14 +42,16 @@ var App = React.createClass({
         <Bigshot/>
 
         <div className="shottie-list">
-          {this.state.shots.map(function(shot) {
-            if (!shot) {
-              return null;
-            }
-            else {
-              return <Shottie shot={shot} key={shot.id}/>;
-            }
-          })}
+          <AnimGroup transitionName="anim-shottie">
+            {this.state.shots.map(function(shot) {
+              if (!shot) {
+                return null;
+              }
+              else {
+                return <Shottie shot={shot} key={shot.id}/>;
+              }
+            })}
+          </AnimGroup>
         </div>
       </div>
     );

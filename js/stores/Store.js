@@ -2,7 +2,7 @@
  * Generic Store superclass
  */
 
-var merge = require('react/lib/merge');
+var merge = require('xtend');
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;

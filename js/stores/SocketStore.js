@@ -1,4 +1,4 @@
-var merge = require('react/lib/merge');
+var merge = require('xtend');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Store = require('./Store');
 var ActionTypes = require('../constants/Constants').ActionTypes;

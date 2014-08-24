@@ -3,7 +3,8 @@
  */
 
 var React = require('react');
-
+var ImageLoader = require('react-imageloader');
+var Loadie = require('./Loadie');
 var ShotStore = require('../stores/ShotStore');
 
 var Bigshot = React.createClass({
@@ -24,9 +25,8 @@ var Bigshot = React.createClass({
 
     return(
       <div className="bigshot">
-        <img className="bigshot__low" src={shot.teaser} />
-        <img className="bigshot__high" src={shot.image} />
-        <a href={shot.originalPage}>Original</a>
+        <ImageLoader src={shot.image} preloader={Loadie}>
+        </ImageLoader>
       </div>
     );
   },

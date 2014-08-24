@@ -4,11 +4,12 @@
 
 var React = require('react');
 var SocketStore = require('../stores/SocketStore');
+var Icon = require('./Icon');
 
 var SocketState = React.createClass({
   getInitialState: function() {
     return {
-      count: 1
+      count: 0
     };
   },
   _onChange: function() {
@@ -17,7 +18,20 @@ var SocketState = React.createClass({
     });
   },
   render: function() {
-    return <div className="socket-state">Others connected: {this.state.count - 1}</div>;
+    var dots = [];
+    for (var i = 0; i < this.state.count; i++) {
+      dots[i] = (
+        <li key={i}>
+          <Icon name="dot"/>
+        </li>
+      );
+    }
+
+    return(
+      <ul className="socket-state">
+        {dots}
+      </ul>
+    );
   },
   componentDidMount: function() {
     SocketStore.addChangeListener(this._onChange);

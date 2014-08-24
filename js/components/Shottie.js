@@ -5,6 +5,8 @@
 var React = require('react');
 var ShotActionCreators = require('../actions/ShotActionCreators');
 var Icon = require('./Icon');
+var ImageLoader = require('react-imageloader');
+var Loadie = require('./Loadie');
 
 var Shottie = React.createClass({
   propTypes: {
@@ -18,7 +20,7 @@ var Shottie = React.createClass({
 
     if (!shot) return null;
 
-    var gif = <span>GIF</span>;
+    var gif = <span className="shottie__label">GIF</span>;
 
     if (shot.isActive) {
       return(
@@ -28,10 +30,11 @@ var Shottie = React.createClass({
       );
     } else {
       return(
-        <a onClick={this.handleClick} className="shottie">
-          <img src={shot.teaser} />
-          {shot.isGif ? gif:null}
-        </a>
+          <a onClick={this.handleClick} className="shottie">
+            <ImageLoader src={shot.teaser} preloader={Loadie}>
+            </ImageLoader>
+            {shot.isGif ? gif:null}
+          </a>
       );
     }
   }
