@@ -3,7 +3,6 @@
  */
 
 var React = require('react');
-var Danger = require('react/lib/danger');
 
 var Icon = React.createClass({
   propTypes: {
