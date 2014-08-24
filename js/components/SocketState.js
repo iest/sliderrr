@@ -8,7 +8,7 @@ var SocketStore = require('../stores/SocketStore');
 var SocketState = React.createClass({
   getInitialState: function() {
     return {
-      count: 0
+      count: 1
     };
   },
   _onChange: function() {
@@ -17,7 +17,7 @@ var SocketState = React.createClass({
     });
   },
   render: function() {
-    return <div className="socket-state">{this.state.count}</div>;
+    return <div className="socket-state">Others connected: {this.state.count - 1}</div>;
   },
   componentDidMount: function() {
     SocketStore.addChangeListener(this._onChange);
