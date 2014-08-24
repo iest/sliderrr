@@ -1,4 +1,4 @@
-# Popppular
+# Sliderrr
 
 A collaborative dribbble viewer.
 
