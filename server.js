@@ -114,6 +114,6 @@ setInterval(function() {
   getAllShots();
 }, 10000);
 
-http.listen(8080, function() {
+http.listen(3002, function() {
   console.log('Listening on port %d', http.address().port);
 });

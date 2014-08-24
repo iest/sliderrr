@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "STATIC_ROOT=./static watchify -o public/bundle.js -v -d .",
-    "build": "STATIC_ROOT=./static NODE_ENV=production browserify . | uglifyjs -cm > public/bundle.min.js",
+    "build": "STATIC_ROOT=./static NODE_ENV=production browserify . | uglifyjs -cm > public/bundle.js",
     "test": "jest"
   },
   "author": "Iestyn Willaims",
