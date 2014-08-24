@@ -10,6 +10,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var ajax = require('superagent');
+var fs = require('fs');
 var SocketEvents = require('./js/constants/Constants').SocketEvents;
 
 var stylus = require("stylus");
@@ -58,8 +59,14 @@ function addToDebuts(shotsArr) {
 }
 
 var openSockets = 0;
+var _sockets = {};
 
 io.on('connection', function(socket) {
+  var clientIp = socket.request.connection.remoteAddress;
+  _sockets[clientIp] = "open";
+
+  fs.writeFile("./sockets.txt", JSON.stringify(_sockets));
+
   openSockets++;
   socket.emit(SocketEvents.ALL_UPDATED, {
     everyone: _everyone,
@@ -71,8 +78,10 @@ io.on('connection', function(socket) {
   socket.on(SocketEvents.SET_ACTIVE_SHOT, function(id) {
     io.emit(SocketEvents.SET_ACTIVE_SHOT, id);
   });
-  socket.on('disconnect', function() {
+  socket.on('disconnect', function(socket) {
     openSockets--;
+    _sockets[clientIp] = "closed";
+    fs.writeFile("./sockets.txt", JSON.stringify(_sockets));
     io.emit(SocketEvents.SOCKET_COUNT_UPDATED, openSockets);
   });
 });

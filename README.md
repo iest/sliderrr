@@ -15,6 +15,10 @@ Check out the demo site: [sliderrr.iestynwilliams.net](http://sliderrr.iestynwil
 One of the designers at work said it would be cool to have a dribbble feed on one of our TVs, so I thought I'd have a go at building one.
 I'm always looking for an excuse to grok new technologies, and React+Flux are very interesting to me at the moment. I've also never really used web sockets before, so wanted to try them out.
 
+## TODO
+- [ ] Loading state when selecting an image (takes a while to load the full images)
+- [ ]
+
 ## Animation TODO
 
 - Bigshot when it changes
