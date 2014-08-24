@@ -9,14 +9,17 @@ var socket = io();
 
 module.exports = {
   initSocketHandlers: function() {
+    socket.on(SocketEvents.ALL_UPDATED, function(shotObject) {
+      ShotActionCreators.recieveAll(shotObject);
+    });
     socket.on(SocketEvents.EVERYONE_UPDATED, function(shots) {
-      ShotActionCreators.recieveAll(shots, ShotCategories.EVERYONE);
+      ShotActionCreators.recieveSome(shots, ShotCategories.EVERYONE);
     });
     socket.on(SocketEvents.POPULAR_UPDATED, function(shots) {
-      ShotActionCreators.recieveAll(shots, ShotCategories.POPULAR);
+      ShotActionCreators.recieveSome(shots, ShotCategories.POPULAR);
     });
     socket.on(SocketEvents.DEBUTS_UPDATED, function(shots) {
-      ShotActionCreators.recieveAll(shots, ShotCategories.DEBUTS);
+      ShotActionCreators.recieveSome(shots, ShotCategories.DEBUTS);
     });
     socket.on(SocketEvents.SET_ACTIVE_SHOT, function(id) {
       ShotActionCreators.setActiveFromServer(id);

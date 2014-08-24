@@ -34,17 +34,26 @@ var _popular = [];
 var _debuts = [];
 
 function addToEveryone(shotsArr) {
-  _everyone = $.union(_everyone, shotsArr);
+  var tempArr = _everyone.concat(shotsArr);
+  _everyone = $.uniq(tempArr, function(shot) {
+    return shot.id;
+  });
   io.emit(SocketEvents.EVERYONE_UPDATED, _everyone);
 }
 
 function addToPopular(shotsArr) {
-  _popular = $.union(_popular, shotsArr);
+  var tempArr = _popular.concat(shotsArr);
+  _popular = $.uniq(tempArr, function(shot) {
+    return shot.id;
+  });
   io.emit(SocketEvents.POPULAR_UPDATED, _popular);
 }
 
 function addToDebuts(shotsArr) {
-  _debuts = $.union(_debuts, shotsArr);
+  var tempArr = _debuts.concat(shotsArr);
+  _debuts = $.uniq(tempArr, function(shot) {
+    return shot.id;
+  });
   io.emit(SocketEvents.DEBUTS_UPDATED, _debuts);
 }
 
@@ -52,9 +61,11 @@ var openSockets = 0;
 
 io.on('connection', function(socket) {
   openSockets++;
-  socket.emit(SocketEvents.EVERYONE_UPDATED, _everyone);
-  socket.emit(SocketEvents.POPULAR_UPDATED, _popular);
-  socket.emit(SocketEvents.DEBUTS_UPDATED, _debuts);
+  socket.emit(SocketEvents.ALL_UPDATED, {
+    everyone: _everyone,
+    debuts: _debuts,
+    popular: _popular
+  });
   io.emit(SocketEvents.SOCKET_COUNT_UPDATED, openSockets);
 
   socket.on(SocketEvents.SET_ACTIVE_SHOT, function(id) {
@@ -72,32 +83,9 @@ io.on('connection', function(socket) {
  * add them to the associated arrays.
  */
 function getAllShots() {
-  ajax.get('http://api.dribbble.com/shots/everyone?per_page=30')
-    .end(function(res) {
-      addToEveryone(res.body.shots);
-    });
-  ajax.get('http://api.dribbble.com/shots/everyone?per_page=30&page=2')
-    .end(function(res) {
-      addToEveryone(res.body.shots);
-    });
-
-  ajax.get('http://api.dribbble.com/shots/popular?per_page=30')
-    .end(function(res) {
-      addToPopular(res.body.shots);
-    });
-  ajax.get('http://api.dribbble.com/shots/popular?per_page=30&page=2')
-    .end(function(res) {
-      addToPopular(res.body.shots);
-    });
-
-  ajax.get('http://api.dribbble.com/shots/debuts?per_page=30')
-    .end(function(res) {
-      addToDebuts(res.body.shots);
-    });
-  ajax.get('http://api.dribbble.com/shots/debuts?per_page=30&page=2')
-    .end(function(res) {
-      addToDebuts(res.body.shots);
-    });
+  updateEveryone();
+  updatePopular();
+  updateDebuts();
 }
 
 function updateEveryone() {
@@ -123,9 +111,7 @@ function updateDebuts() {
 
 getAllShots();
 setInterval(function() {
-  updateEveryone();
-  updatePopular();
-  updateDebuts();
+  getAllShots();
 }, 10000);
 
 http.listen(8080, function() {

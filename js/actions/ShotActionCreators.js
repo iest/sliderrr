@@ -25,9 +25,16 @@ var ShotActionCreators = {
     };
     AppDispatcher.handleServerAction(action);
   },
-  recieveAll: function(rawShots, shotCategory) {
+  recieveAll: function(shotObject) {
     var action = {
-      type: ActionTypes.RECIEVE_RAW_SHOTS,
+      type: ActionTypes.RECIEVE_SHOT_OBJECT,
+      shotObject: shotObject
+    };
+    AppDispatcher.handleServerAction(action);
+  },
+  recieveSome: function(rawShots, shotCategory) {
+    var action = {
+      type: ActionTypes.RECIEVE_SHOTS,
       rawShots: rawShots,
       shotCategory: shotCategory
     };

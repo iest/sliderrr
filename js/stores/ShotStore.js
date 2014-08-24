@@ -60,6 +60,16 @@ function _addShots(rawShots, category) {
   });
 }
 
+function _addShotsByObject(shotObj) {
+  var E = ShotCategories.EVERYONE;
+  var D = ShotCategories.DEBUTS;
+  var P = ShotCategories.POPULAR;
+
+  _addShots(shotObj[E], E);
+  _addShots(shotObj[D], D);
+  _addShots(shotObj[P], P);
+}
+
 function _setActive(id) {
   var shotCategory = _shots[_currentShotCategory];
   for (var k in shotCategory) {
@@ -70,10 +80,15 @@ function _setActive(id) {
 
 ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
-
+  console.debug("ACTION", action);
   switch (action.type) {
 
-    case ActionTypes.RECIEVE_RAW_SHOTS:
+    case ActionTypes.RECIEVE_SHOT_OBJECT:
+      _addShotsByObject(action.shotObject);
+      ShotStore.emitChange();
+      break;
+
+    case ActionTypes.RECIEVE_SHOTS:
       _addShots(action.rawShots, action.shotCategory);
       ShotStore.emitChange();
       break;
