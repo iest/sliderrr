@@ -183,11 +183,13 @@ ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.NEXT_SHOT:
+      _pauseSlideshowThenContinue();
       _selectNextShot();
       ShotStore.emitChange();
       break;
 
     case ActionTypes.PREV_SHOT:
+      _pauseSlideshowThenContinue();
       _selectPrevShot();
       ShotStore.emitChange();
       break;
