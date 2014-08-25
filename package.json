@@ -5,9 +5,7 @@
   "private": true,
   "main": "js/app.js",
   "dependencies": {
-    "es6-promise": "~0.1.1",
     "express": "^4.8.5",
-    "lodash": "^2.4.1",
     "nib": "^1.0.3",
     "react": "~0.11.0",
     "react-imageloader": "^1.0.5",
@@ -33,7 +31,7 @@
     "test": "jest"
   },
   "author": "Iestyn Willaims",
-  "license": "Apache 2",
+  "license": "MIT",
   "browserify": {
     "transform": [
       "reactify",

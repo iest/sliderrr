@@ -21,6 +21,9 @@ var Shottie = React.createClass({
     if (!shot) return null;
 
     var gif = <span className="shottie__label">GIF</span>;
+    var preloader = function() {
+      return <Loadie className="loadie--small"/>;
+    };
 
     if (shot.isActive) {
       return(
@@ -30,11 +33,11 @@ var Shottie = React.createClass({
       );
     } else {
       return(
-          <a onClick={this.handleClick} className="shottie">
-            <ImageLoader src={shot.teaser} preloader={Loadie}>
-            </ImageLoader>
-            {shot.isGif ? gif:null}
-          </a>
+        <a onClick={this.handleClick} className="shottie">
+          <ImageLoader src={shot.teaser} preloader={preloader}>
+          </ImageLoader>
+          {shot.isGif ? gif:null}
+        </a>
       );
     }
   }

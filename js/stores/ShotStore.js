@@ -8,13 +8,13 @@ var _shots = {};
 _shots[ShotCategories.EVERYONE] = {};
 _shots[ShotCategories.DEBUTS] = {};
 _shots[ShotCategories.POPULAR] = {};
-var _currentShotCategory = ShotCategories.POPULAR;
+var _currentShotCategory;
 
 var ShotStore = merge(Store, {
   getCurrentShotCategory: function() {
     return _currentShotCategory;
   },
-  getAll: function() {
+  getAllShots: function() {
     var shotArr = [];
     var shotCategory = _shots[_currentShotCategory];
     for (var k in shotCategory) {
@@ -23,7 +23,7 @@ var ShotStore = merge(Store, {
     shotArr.reverse();
     return shotArr;
   },
-  getActive: function() {
+  getActiveShot: function() {
     var foundShot = null;
     var shotCategory = _shots[_currentShotCategory];
     for (var k in shotCategory) {
@@ -52,15 +52,15 @@ function _create(shot) {
 }
 
 function _addShots(rawShots, category) {
-  var shotCategory = _shots[category];
-  rawShots.forEach(function(shot) {
-    if (!shotCategory[shot.id]) {
-      shotCategory[shot.id] = _create(shot);
+  for (var k in rawShots) {
+    if (!_shots[category][k]) {
+      _shots[category][k] = _create(rawShots[k]);
     }
-  });
+  }
+
 }
 
-function _addShotsByObject(shotObj) {
+function _recieveInitResponse(shotObj) {
   var E = ShotCategories.EVERYONE;
   var D = ShotCategories.DEBUTS;
   var P = ShotCategories.POPULAR;
@@ -69,12 +69,20 @@ function _addShotsByObject(shotObj) {
   _addShots(shotObj[D], D);
   _addShots(shotObj[P], P);
 
+  if (shotObj.activeCategory) {
+    _setCurrentShotCategory(shotObj.activeCategory);
+  }
+
   if (shotObj.activeShotId) {
-    _setActive(shotObj.activeShotId);
+    _setActiveShot(shotObj.activeShotId);
   }
 }
 
-function _setActive(id) {
+function _setCurrentShotCategory(category) {
+  _currentShotCategory = category;
+}
+
+function _setActiveShot(id) {
   var shotCategory = _shots[_currentShotCategory];
   for (var k in shotCategory) {
     shotCategory[k].isActive = false;
@@ -84,11 +92,10 @@ function _setActive(id) {
 
 ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
-
   switch (action.type) {
 
     case ActionTypes.RECIEVE_SHOT_OBJECT:
-      _addShotsByObject(action.shotObject);
+      _recieveInitResponse(action.shotObject);
       ShotStore.emitChange();
       break;
 
@@ -98,7 +105,12 @@ ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.SET_ACTIVE_SHOT:
-      _setActive(action.id);
+      _setActiveShot(action.id);
+      ShotStore.emitChange();
+      break;
+
+    case ActionTypes.SET_ACTIVE_CATEGORY:
+      _setCurrentShotCategory(action.category);
       ShotStore.emitChange();
       break;
 

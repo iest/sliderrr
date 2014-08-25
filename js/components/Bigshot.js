@@ -15,13 +15,15 @@ var Bigshot = React.createClass({
   },
   _onChange: function() {
     this.setState({
-      shot: ShotStore.getActive()
+      shot: ShotStore.getActiveShot()
     });
   },
   render: function() {
     var shot = this.state.shot;
 
     if (!shot) return null;
+
+    // return <Loadie/>;
 
     return(
       <div className="bigshot">

@@ -25,6 +25,7 @@ I'm always looking for an excuse to grok new technologies, and React+Flux are ve
 - [ ] Get `Loadie` working nicely
 - [ ] Slideshow between images & choose image at beginning (server-side)
 - [ ] Select different shot categories
+- [ ] Write build script that outputs zip file containing everything needed
 
 ## Animation TODO
 

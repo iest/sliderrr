@@ -22,6 +22,7 @@ module.exports = {
     DEBUTS_UDATED: null,
     POPULAR_UPDATED: null,
     SET_ACTIVE_SHOT: null,
+    SET_ACTIVE_CATEGORY: null,
     SOCKET_COUNT_UPDATED: null
   })
 };

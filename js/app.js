@@ -30,7 +30,7 @@ var App = React.createClass({
   },
   _onChange: function() {
     this.setState({
-      shots: ShotStore.getAll()
+      shots: ShotStore.getAllShots()
     });
   },
   render: function() {

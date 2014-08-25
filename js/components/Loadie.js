@@ -8,7 +8,7 @@ var Icon = require('./Icon');
 var Loadie = React.createClass({
   render: function() {
     return(
-      <span className="loadie">
+      <span className={"loadie " + this.props.className}>
         <Icon name="spinner"/>
       </span>
       );

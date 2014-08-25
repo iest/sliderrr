@@ -101,31 +101,40 @@ img
 
 .loadie
   width 3em
+  height @width
   position absolute
   top 50%
   left 50%
   transform translate(-50%, -50%)
+  opacity 0.5
   svg
     fill transparent
     stroke primary
     stroke-width 10
-    #outer
-      animation mental 2s ease-in-out infinite
-      transform-origin center center
     #middle
-      animation mental 2s ease-in-out infinite 0.25s
+      opacity 0
+      animation mental 1.5s ease-in-out infinite
       transform-origin center center
     #inner
-      animation mental 2s ease-in-out infinite 0.5s
+      opacity 0
+      animation mental 1.5s ease-in-out infinite 0.25s
       transform-origin center center
   .icon
     position absolute
+.loadie--small
+  opacity 0.25
+  height 1em
+  width 1em
+  svg
+    stroke-width 5
 
 
 @keyframes mental
-  from
+  0%
     transform scale(0)
+    opacity 0
+  50%
     opacity 1
-  to
+  100%
     transform scale(1)
     opacity 0
