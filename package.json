@@ -27,8 +27,8 @@
     "jest-cli": "~0.1.5"
   },
   "scripts": {
-    "start": "STATIC_ROOT=./static watchify -o public/bundle.js -v -d .",
-    "build": "STATIC_ROOT=./static NODE_ENV=production browserify . | uglifyjs -cm > public/bundle.js",
+    "start": "watchify -o public/bundle.js -v -d .",
+    "build": "browserify . | uglifyjs -cm > public/bundle.js",
     "test": "jest"
   },
   "author": "Iestyn Willaims",
