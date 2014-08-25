@@ -1,6 +1,5 @@
 /**
  * TODO:
- * - Animate bigshot
  * - Add category selection
  * - Fix styes on small screens
  * 
