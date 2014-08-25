@@ -65,11 +65,21 @@ function populateCurrentShotCategory() {
 
       var newShots = res.body.shots;
 
+      newShots.sort(function(a, b) {
+        if (a.id < b.id) return -1;
+        if (a.id > b.id) return 1;
+        return 0;
+      });
+
       newShots.forEach(function(shot) {
         if (!(shot.id in currentCategory)) {
           currentCategory[shot.id] = shot;
         }
       });
+
+      if (!_activeShotId) {
+        _activeShotId = newShots[0].id;
+      }
 
       var event;
       switch (_activeCategory) {

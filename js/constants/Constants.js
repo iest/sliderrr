@@ -14,7 +14,9 @@ module.exports = {
     RECIEVE_SHOT_OBJECT: null,
     RECIEVE_SHOTS: null,
     RECIEVE_SOCKET_COUNT: null,
-    SET_ACTIVE_SHOT: null
+    SET_ACTIVE_SHOT: null,
+    NEXT_SHOT: null,
+    PREV_SHOT: null
   }),
   SocketEvents: keyMirror({
     ALL_UPDATED: null,

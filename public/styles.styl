@@ -45,20 +45,19 @@ img
     font-weight 500
     font-size 0.9em
     padding 0.25em 0.5em
-    background bg-light
+    background bg
     border-radius 20em
     text-decoration none
 
 .shottie-list
   width 100%
-  overflow auto
   height 10vh
   position absolute
   bottom 0
-  white-space nowrap
 
 .shottie
   position relative
+  z-index 500
   cursor pointer
   display inline-block
   height 10vh
@@ -66,17 +65,17 @@ img
   margin-right 1px
   background bg-light
   overflow hidden
+  transition all 300ms bounce
   svg
     transition all 300ms bounce
-    transform translateY(120%)
+    transform translateY(150%)
     position absolute
     z-index 1
-    fill primary
+    fill bg
     display block
-    margin 0.5em auto
-    height 7vh
-    top 0
-    left 3.3333vh
+    height 5vh
+    top 2.5vh
+    left 0.7vh
   img
     transition all 300ms bounce
     position relative
@@ -97,7 +96,8 @@ img
     opacity 0.5
 
 .shottie--active
-  background bg
+  background primary
+  width 6vh
   svg
     transform translateY(0)
   img

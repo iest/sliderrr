@@ -1,8 +1,7 @@
 /**
  * TODO:
- * - Create slideshow method
- *   - Set first active bigshot
- *   - After timeout, select next shot
+ * - After timeout, select next shot
+ * - Animate bigshot
  * 
  * @jsx React.DOM
  */
@@ -22,16 +21,29 @@ var AnimGroup = require('react/lib/ReactCSSTransitionGroup');
 WebAPI.initSocketHandlers();
 
 var App = React.createClass({
-  getInitialState: function() {
-    return {
-      shots: [],
-      activeShot: null
-    };
+  _slideTimer: null,
+  setupSlideshow: function() {
+    this._slideTimer = setInterval(this.nextSlide, 3000);
+  },
+  teardownSlideshow: function() {
+    clearInterval(this._slideTimer);
+  },
+  nextSlide: function() {
+    ShotActionCreators.selectNextShot();
+  },
+  prevSlide: function() {
+    ShotActionCreators.selectPrevShot();
   },
   _onChange: function() {
     this.setState({
       shots: ShotStore.getAllShots()
     });
+  },
+  getInitialState: function() {
+    return {
+      shots: [],
+      activeShot: null
+    };
   },
   render: function() {
     return(
@@ -60,24 +72,13 @@ var App = React.createClass({
   },
   componentDidMount: function() {
     ShotStore.addChangeListener(this._onChange);
+    this.setupSlideshow();
   },
   componentWillUnmount: function() {
     ShotStore.removeChangeListener(this._onChange);
+    this.teardownSlideshow();
   }
 });
-
-window.ADD = function() {
-  var fakeObj = {};
-  var fakeId = new Date().getTime();
-  fakeObj[fakeId] = {
-    id: fakeId,
-    title: "FAKE",
-    image_url: "http://placehold.it/400x300.png",
-    image_teaser_url: "http://placehold.it/200x150.png",
-    url: "nerp",
-  };
-  ShotActionCreators.recieveSome(fakeObj, "popular");
-};
 
 React.renderComponent(
   <App/>,

@@ -20,7 +20,7 @@ var ShotStore = merge(Store, {
     for (var k in shotCategory) {
       shotArr.push(shotCategory[k]);
     }
-    shotArr.reverse();
+
     return shotArr;
   },
   getActiveShot: function() {
@@ -91,6 +91,42 @@ function _setActiveShot(id) {
   shotCategory[id].isActive = true;
 }
 
+function _selectNextShot(){
+  var allShots = ShotStore.getAllShots();
+  var _activeShotId = ShotStore.getActiveShot().id;
+  var foundIndex;
+  allShots.forEach(function(shot, i) {
+    if (shot.id === _activeShotId) {
+      foundIndex = i;
+    }
+  });
+  var newIndex = foundIndex + 1;
+  if (newIndex > allShots.length - 1) {
+    _activeShotId = allShots[0].id;
+  } else {
+    _activeShotId = allShots[newIndex].id;
+  }
+  _setActiveShot(_activeShotId);
+}
+
+function _selectPrevShot(){
+  var allShots = ShotStore.getAllShots();
+  var _activeShotId = ShotStore.getActiveShot().id;
+  var foundIndex;
+  allShots.forEach(function(shot, i) {
+    if (shot.id === _activeShotId) {
+      foundIndex = i;
+    }
+  });
+  var newIndex = foundIndex - 1;
+  if (newIndex < 0) {
+    _activeShotId = allShots[allShots.length - 1].id;
+  } else {
+    _activeShotId = allShots[newIndex].id;
+  }
+  _setActiveShot(_activeShotId);
+}
+
 ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
   switch (action.type) {
@@ -115,6 +151,15 @@ ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
       ShotStore.emitChange();
       break;
 
+    case ActionTypes.NEXT_SHOT:
+      _selectNextShot();
+      ShotStore.emitChange();
+      break;
+
+    case ActionTypes.NEXT_SHOT:
+      _selectPrevShot();
+      ShotStore.emitChange();
+      break;
   }
 
 });

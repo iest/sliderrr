@@ -39,6 +39,18 @@ var ShotActionCreators = {
       shotCategory: shotCategory
     };
     AppDispatcher.handleServerAction(action);
+  },
+  selectNextShot: function() {
+    var action = {
+      type: ActionTypes.NEXT_SHOT
+    };
+    AppDispatcher.handleViewAction(action);
+  },
+  selectPrevShot: function() {
+    var action = {
+      type: ActionTypes.PREV_SHOT
+    };
+    AppDispatcher.handleViewAction(action);
   }
 };
 
