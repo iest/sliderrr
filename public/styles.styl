@@ -67,16 +67,23 @@ img
   background bg-light
   overflow hidden
   svg
-    stroke #555
-    stroke-width 15
-    fill transparent
+    transition all 300ms bounce
+    transform translateY(120%)
+    position absolute
+    z-index 1
+    fill primary
     display block
     margin 0.5em auto
-    width 2em
+    height 7vh
+    top 0
+    left 3.3333vh
   img
     transition all 300ms bounce
+    position relative
+    z-index 2
 .shottie__label
     position absolute
+    z-index 3
     color white
     background bg
     border-radius 3px
@@ -90,9 +97,11 @@ img
     opacity 0.5
 
 .shottie--active
-  background primary
+  background bg
+  svg
+    transform translateY(0)
   img
-    transform scale(0.5)
+    transform scale(0.5) translateY(-150%)
 
 .anim-shottie-enter
   opacity 0

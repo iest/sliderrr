@@ -36,10 +36,12 @@ var App = React.createClass({
   render: function() {
     return(
       <div>
-        
+
         <SocketState/>
-      
-        <Bigshot/>
+        
+        <AnimGroup transitionName="anim-bigshot">
+          <Bigshot/>
+        </AnimGroup>
 
         <div className="shottie-list">
           <AnimGroup transitionName="anim-shottie">

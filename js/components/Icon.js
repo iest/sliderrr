@@ -10,7 +10,8 @@ var Icon = React.createClass({
   },
   render: function() {
     var icon = iconMap[this.props.name];
-    return <span className={"icon " + this.props.className}>{icon}</span>;
+    var extraClasses = this.props.className ? this.props.className:"";
+    return <span className={"icon " + extraClasses}>{icon}</span>;
   }
 });
 
