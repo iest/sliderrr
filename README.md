@@ -39,3 +39,6 @@ I'm always looking for an excuse to grok new technologies, and React+Flux are ve
 2. `cd sliderrr`
 3. `npm install`
 4. `node server.js`
+
+### Notes
+If you're using nginx on your webserver (as I am), you'll need to make sure it's set up to handle websockets. For me, this meant upgrading nginx to 1.3 or above (think I got 1.6), and making sure the nginx conf for the site is [set up correctly](http://stackoverflow.com/questions/15193743/nginx-reverse-proxy-websockets).

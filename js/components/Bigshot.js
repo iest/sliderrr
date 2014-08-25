@@ -27,8 +27,10 @@ var Bigshot = React.createClass({
 
     return(
       <div className="bigshot">
-        <ImageLoader src={shot.image} preloader={Loadie}>
-        </ImageLoader>
+        <ImageLoader src={shot.image} preloader={Loadie}></ImageLoader>
+        <div className="bigshot__url">
+          <a href={shot.originalPage}>{shot.title}</a>
+        </div>
       </div>
     );
   },

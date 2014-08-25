@@ -43,6 +43,7 @@ var ShotStore = merge(Store, {
 function _create(shot) {
   return {
     id: shot.id,
+    title: shot.title,
     image: shot.image_url,
     teaser: shot.image_teaser_url,
     originalPage: shot.url,

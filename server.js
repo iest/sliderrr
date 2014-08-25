@@ -49,10 +49,10 @@ var _activeShotId = null;
  * Emit io event for given category to all open sockets.
  */
 function populateCurrentShotCategory() {
+
   var currentCategory = _shots[_activeCategory];
 
-  // ajax.get('http://api.dribbble.com/shots/' + _activeCategory)
-  ajax.get('localhost:3002/dummyresp.json')
+  ajax.get('http://api.dribbble.com/shots/' + _activeCategory)
     .on('error', function(err) {
       console.error("Request error: " + err);
     })
