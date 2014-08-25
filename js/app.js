@@ -1,6 +1,7 @@
 /**
  * TODO:
  * - Animate bigshot
+ * - Add category selection
  * - Fix styes on small screens
  * 
  * @jsx React.DOM
@@ -59,9 +60,7 @@ var App = React.createClass({
 
         <SocketState/>
         
-        <AnimGroup transitionName="anim-bigshot">
-          <Bigshot/>
-        </AnimGroup>
+        <Bigshot/>
 
         <div className="shottie-list">
           <AnimGroup transitionName="anim-shottie">

@@ -6,6 +6,7 @@ var React = require('react');
 var ImageLoader = require('react-imageloader');
 var Loadie = require('./Loadie');
 var ShotStore = require('../stores/ShotStore');
+var AnimGroup = require('react/lib/ReactCSSTransitionGroup');
 
 var Bigshot = React.createClass({
   getInitialState: function() {
@@ -18,20 +19,19 @@ var Bigshot = React.createClass({
       shot: ShotStore.getActiveShot()
     });
   },
+
   render: function() {
     var shot = this.state.shot;
-
     if (!shot) return null;
-
-    // return <Loadie/>;
-
     return(
-      <div className="bigshot">
-        <ImageLoader key={shot.id} src={shot.image} preloader={Loadie}></ImageLoader>
-        <div className="bigshot__label">
-          <a href={shot.originalPage}>{shot.title}</a>
+        <div className="bigshot">
+          <AnimGroup transitionName="anim-bigshot">
+            <img key={shot.image} src={shot.image}/>
+          </AnimGroup>
+          <div className="bigshot__label">
+            <a href={shot.originalPage}>{shot.title}</a>
+          </div>
         </div>
-      </div>
     );
   },
   componentDidMount: function() {

@@ -24,19 +24,34 @@ body
   font-weight 200
 
 img
-  height 100%
   display block
   margin 0 auto
 
 .bigshot
-  position relative
-  top 0
+  img
+    display block
+    position absolute
+    top 0
+    background bg-light
+    width 100vw
   height 90vh
+
+.anim-bigshot-enter
+  transition all 500ms ease-out
+  opacity 0
+.anim-bigshot-enter.anim-bigshot-enter-active
+  opacity 1
+
+.anim-bigshot-leave
+  transition all 500ms ease-out
+  opacity 1
+.anim-bigshot-leave.anim-bigshot-leave-active
+  opacity 0
 
 .bigshot__label
   position absolute
   z-index 1000
-  bottom 1em
+  bottom 11.5vh
   width 100%
   text-align center
   opacity 0.5
@@ -120,18 +135,6 @@ img
   // 
 .anim-shottie-leave.anim-shottie-leave-active
   // 
-
-.anim-bigshot-enter
-  transition all 300ms bounce
-  transform translateY(100%)
-.anim-bigshot-enter.anim-bigshot-enter-active
-  transform translateY(0)
-
-.anim-bigshot-leave
-  transition all 300ms bounce
-  transform translateY(0%)
-.anim-bigshot-leave.anim-bigshot-leave-active
-  transform translateY(100%)
   
 .socket-state
   position absolute
