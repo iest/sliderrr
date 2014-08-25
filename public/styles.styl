@@ -148,15 +148,17 @@ img
       stroke bg
 
 .anim-socket-state-enter
-  transition all 1s ease
+  transition all 1s ease-in-out
   opacity 0
+  transform scale(0)
 .anim-socket-state-enter-active
   opacity 1
+  transform scale(1)
 .anim-socket-state-leave
-  transition all 1s ease
-  opacity 1
+  transition all 1s ease-in-out
 .anim-socket-state-leave-active
   opacity 0
+  transform scale(0)
 
 .loadie
   width 3em

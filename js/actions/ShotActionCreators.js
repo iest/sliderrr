@@ -51,6 +51,18 @@ var ShotActionCreators = {
       type: ActionTypes.PREV_SHOT
     };
     AppDispatcher.handleViewAction(action);
+  },
+  startSlideshow: function() {
+    var action = {
+      type: ActionTypes.START_SLIDESHOW
+    };
+    AppDispatcher.handleViewAction(action);
+  },
+  stopSlideshow: function() {
+    var action = {
+      type: ActionTypes.STOP_SLIDESHOW
+    };
+    AppDispatcher.handleViewAction(action);
   }
 };
 

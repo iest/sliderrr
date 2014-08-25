@@ -21,7 +21,7 @@ var ShotStore = merge(Store, {
       shotArr.push(shotCategory[k]);
     }
 
-    return shotArr;
+    return shotArr.reverse();
   },
   getActiveShot: function() {
     var foundShot = null;
@@ -91,7 +91,7 @@ function _setActiveShot(id) {
   shotCategory[id].isActive = true;
 }
 
-function _selectNextShot(){
+function _selectNextShot() {
   var allShots = ShotStore.getAllShots();
   var _activeShotId = ShotStore.getActiveShot().id;
   var foundIndex;
@@ -109,7 +109,7 @@ function _selectNextShot(){
   _setActiveShot(_activeShotId);
 }
 
-function _selectPrevShot(){
+function _selectPrevShot() {
   var allShots = ShotStore.getAllShots();
   var _activeShotId = ShotStore.getActiveShot().id;
   var foundIndex;
@@ -125,6 +125,28 @@ function _selectPrevShot(){
     _activeShotId = allShots[newIndex].id;
   }
   _setActiveShot(_activeShotId);
+}
+
+var _slideTimer;
+
+function _setupSlideshow() {
+  _slideTimer = setInterval(function() {
+    _selectNextShot();
+    ShotStore.emitChange();
+  }, 10000);
+}
+
+function _teardownSlideshow() {
+  clearInterval(_slideTimer);
+}
+
+var _pause;
+function _pauseSlideshowThenContinue() {
+  if (_pause) {
+    clearTimeout(_pause);
+  }
+  _teardownSlideshow();
+  _pause = setTimeout(_setupSlideshow, 20000);
 }
 
 ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -143,6 +165,7 @@ ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.SET_ACTIVE_SHOT:
       _setActiveShot(action.id);
+      _pauseSlideshowThenContinue();
       ShotStore.emitChange();
       break;
 
@@ -151,12 +174,20 @@ ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
       ShotStore.emitChange();
       break;
 
+    case ActionTypes.START_SLIDESHOW:
+      _setupSlideshow();
+      break;
+
+    case ActionTypes.STOP_SLIDESHOW:
+      _teardownSlideshow();
+      break;
+
     case ActionTypes.NEXT_SHOT:
       _selectNextShot();
       ShotStore.emitChange();
       break;
 
-    case ActionTypes.NEXT_SHOT:
+    case ActionTypes.PREV_SHOT:
       _selectPrevShot();
       ShotStore.emitChange();
       break;

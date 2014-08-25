@@ -1,7 +1,7 @@
 /**
  * TODO:
- * - After timeout, select next shot
  * - Animate bigshot
+ * - Fix styes on small screens
  * 
  * @jsx React.DOM
  */
@@ -21,19 +21,13 @@ var AnimGroup = require('react/lib/ReactCSSTransitionGroup');
 WebAPI.initSocketHandlers();
 
 var App = React.createClass({
-  _slideTimer: null,
-  setupSlideshow: function() {
-    this._slideTimer = setInterval(this.nextSlide, 3000);
-  },
-  teardownSlideshow: function() {
-    clearInterval(this._slideTimer);
-  },
   nextSlide: function() {
     ShotActionCreators.selectNextShot();
   },
   prevSlide: function() {
     ShotActionCreators.selectPrevShot();
   },
+  // Need to pause the slideshow if a user changes the active shot
   _onChange: function() {
     this.setState({
       shots: ShotStore.getAllShots()
@@ -72,11 +66,11 @@ var App = React.createClass({
   },
   componentDidMount: function() {
     ShotStore.addChangeListener(this._onChange);
-    this.setupSlideshow();
+    ShotActionCreators.startSlideshow();
   },
   componentWillUnmount: function() {
     ShotStore.removeChangeListener(this._onChange);
-    this.teardownSlideshow();
+    ShotActionCreators.stopSlideshow();
   }
 });
 

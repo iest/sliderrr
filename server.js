@@ -1,15 +1,3 @@
-/**
- * TODO:
- * - Allow the client to change the current active category
- *
- * TODO: Server-side shot management:
- * - Fetch shots for the current category only
- * - Don't add duplicate shots
- * - Poll dribbble API every ~30 seconds
- * - Only poll API when there are sockets connected
- * - If we have no shots when a socket connects, hit the Dribbble API
- */
-
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -65,9 +53,10 @@ function populateCurrentShotCategory() {
 
       var newShots = res.body.shots;
 
+      // Make sure they're sorted by ID
       newShots.sort(function(a, b) {
-        if (a.id < b.id) return -1;
-        if (a.id > b.id) return 1;
+        if (a.id > b.id) return -1;
+        if (a.id < b.id) return 1;
         return 0;
       });
 

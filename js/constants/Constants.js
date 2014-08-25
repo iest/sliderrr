@@ -15,6 +15,8 @@ module.exports = {
     RECIEVE_SHOTS: null,
     RECIEVE_SOCKET_COUNT: null,
     SET_ACTIVE_SHOT: null,
+    START_SLIDESHOW: null,
+    STOP_SLIDESHOW: null,
     NEXT_SHOT: null,
     PREV_SHOT: null
   }),
