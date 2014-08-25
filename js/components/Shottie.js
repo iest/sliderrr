@@ -3,6 +3,7 @@
  */
 
 var React = require('react');
+var cx = require('react/lib/cx');
 var ShotActionCreators = require('../actions/ShotActionCreators');
 var Icon = require('./Icon');
 var ImageLoader = require('react-imageloader');
@@ -25,21 +26,18 @@ var Shottie = React.createClass({
       return <Loadie className="loadie--small"/>;
     };
 
-    if (shot.isActive) {
-      return(
-        <a className="shottie shottie--active">
-          <Icon name="arrow"/>
-        </a>
-      );
-    } else {
-      return(
-        <a onClick={this.handleClick} className="shottie">
-          <ImageLoader src={shot.teaser} preloader={preloader}>
-          </ImageLoader>
-          {shot.isGif ? gif:null}
-        </a>
-      );
-    }
+    var classNames = cx({
+      "shottie": true,
+      "shottie--active": shot.isActive
+    });
+
+    return(
+      <a onClick={this.handleClick} className={classNames}>
+        <ImageLoader src={shot.teaser} preloader={preloader}>
+        </ImageLoader>
+        {shot.isGif ? gif:null}
+      </a>
+    );
   }
 });
 

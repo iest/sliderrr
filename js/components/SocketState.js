@@ -5,6 +5,7 @@
 var React = require('react');
 var SocketStore = require('../stores/SocketStore');
 var Icon = require('./Icon');
+var AnimGroup = require('react/lib/ReactCSSTransitionGroup');
 
 var SocketState = React.createClass({
   getInitialState: function() {
@@ -26,10 +27,13 @@ var SocketState = React.createClass({
         </li>
       );
     }
+    dots.reverse();
 
     return(
       <ul className="socket-state">
-        {dots}
+        <AnimGroup transitionName="anim-socket-state">
+          {dots}
+        </AnimGroup>
       </ul>
     );
   },

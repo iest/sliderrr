@@ -26,12 +26,12 @@ var Bigshot = React.createClass({
     // return <Loadie/>;
 
     return(
-      <div className="bigshot">
-        <ImageLoader src={shot.image} preloader={Loadie}></ImageLoader>
-        <div className="bigshot__url">
-          <a href={shot.originalPage}>{shot.title}</a>
+        <div className="bigshot">
+          <ImageLoader key={shot.id} src={shot.image} preloader={Loadie}></ImageLoader>
+          <div className="bigshot__label">
+            <a href={shot.originalPage}>{shot.title}</a>
+          </div>
         </div>
-      </div>
     );
   },
   componentDidMount: function() {

@@ -36,7 +36,7 @@ var App = React.createClass({
   render: function() {
     return(
       <div>
-
+        
         <SocketState/>
       
         <Bigshot/>
@@ -63,6 +63,19 @@ var App = React.createClass({
     ShotStore.removeChangeListener(this._onChange);
   }
 });
+
+window.ADD = function() {
+  var fakeObj = {};
+  var fakeId = new Date().getTime();
+  fakeObj[fakeId] = {
+    id: fakeId,
+    title: "FAKE",
+    image_url: "http://placehold.it/400x300.png",
+    image_teaser_url: "http://placehold.it/200x150.png",
+    url: "nerp",
+  };
+  ShotActionCreators.recieveSome(fakeObj, "popular");
+};
 
 React.renderComponent(
   <App/>,

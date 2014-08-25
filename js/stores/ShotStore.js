@@ -48,7 +48,7 @@ function _create(shot) {
     teaser: shot.image_teaser_url,
     originalPage: shot.url,
     isActive: false,
-    isGif: /\.gif$/.test(shot.image_url)
+    isGif: /.*\.gif/.test(shot.image_url)
   };
 }
 
