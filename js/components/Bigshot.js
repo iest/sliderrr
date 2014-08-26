@@ -23,11 +23,13 @@ var Bigshot = React.createClass({
   render: function() {
     var shot = this.state.shot;
     if (!shot) return null;
+    if (!shot.image) return null;
+    var styles = {
+      backgroundImage: "url(" + shot.image + ")"
+    };
     return(
         <div className="bigshot">
-          <AnimGroup transitionName="anim-bigshot">
-            <img key={shot.image} src={shot.image}/>
-          </AnimGroup>
+          <div className="bigshot__shot" style={styles}/>
           <div className="bigshot__label">
             <a href={shot.originalPage}>{shot.title}</a>
           </div>

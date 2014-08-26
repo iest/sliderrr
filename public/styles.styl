@@ -18,7 +18,6 @@ html
   height 100%
 body
   background bg
-  height 100%
   position relative
   font 1em/1.5 "Helvetica Neue", "Helvetica"
   font-weight 200
@@ -28,29 +27,23 @@ img
   margin 0 auto
 
 .bigshot
-  img
-    display block
-    position absolute
-    top 0
-    background bg-light
-    height 90vh
-
-.anim-bigshot-enter
-  transition all 500ms ease-out
-  opacity 0
-.anim-bigshot-enter.anim-bigshot-enter-active
-  opacity 1
-
-.anim-bigshot-leave
-  transition all 500ms ease-out
-  opacity 1
-.anim-bigshot-leave.anim-bigshot-leave-active
-  opacity 0
+  position relative
+  background bg
+  width 100vw
+  height 100vh
+  text-align center
+.bigshot__shot
+  display block
+  background-color bg-light
+  height 100%
+  background-repeat no-repeat
+  background-size contain
+  background-position 50% 50%
 
 .bigshot__label
   position absolute
   z-index 1000
-  bottom 11.5vh
+  top 1em
   width 100%
   text-align center
   opacity 0.5
@@ -64,10 +57,7 @@ img
     text-decoration none
 
 .shottie-list
-  width 100%
-  height 10vh
-  position absolute
-  bottom 0
+  display none
 
 .shottie
   position relative

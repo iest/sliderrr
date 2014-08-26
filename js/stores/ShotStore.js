@@ -58,7 +58,6 @@ function _addShots(rawShots, category) {
       _shots[category][k] = _create(rawShots[k]);
     }
   }
-
 }
 
 function _recieveInitResponse(shotObj) {
@@ -133,7 +132,7 @@ function _setupSlideshow() {
   _slideTimer = setInterval(function() {
     _selectNextShot();
     ShotStore.emitChange();
-  }, 10000);
+  }, 14000);
 }
 
 function _teardownSlideshow() {
@@ -146,7 +145,7 @@ function _pauseSlideshowThenContinue() {
     clearTimeout(_pause);
   }
   _teardownSlideshow();
-  _pause = setTimeout(_setupSlideshow, 20000);
+  _pause = setTimeout(_setupSlideshow, 24000);
 }
 
 ShotStore.dispatchToken = AppDispatcher.register(function(payload) {
