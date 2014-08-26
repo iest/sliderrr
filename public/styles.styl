@@ -12,26 +12,33 @@ bg-light = #2F4858
 primary = #42CCA5
 secondary = #CF4A4A
 
+font_stack = "Helvetica Neue", "Helvetica"
+
 bounce = cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 html
   height 100%
 body
-  background bg
+  background black
   position relative
-  font 1em/1.5 "Helvetica Neue", "Helvetica"
+  font 1em/1.5 font_stack
   font-weight 200
 
 img
   display block
   margin 0 auto
 
+.container
+  overflow hidden
+  height 100vh
+
 .bigshot
   position relative
-  background bg
+  z-index 2
   width 100vw
   height 100vh
   text-align center
+  transition all 400ms bounce
 .bigshot__shot
   display block
   background-color bg-light
@@ -43,30 +50,34 @@ img
 .bigshot__label
   position absolute
   z-index 1000
-  top 1em
-  width 100%
-  text-align center
-  opacity 0.5
+  bottom 0.5em
+  right 0.5em
+  background bg
+  border 2px solid primary
+  border-radius 20em
+  overflow hidden
+  transition all 300ms bounce
+  img
+    height 1.6em
+    width @height
+    float left
   a
-    color white
+    color primary
+    padding 0 0.5em
     font-weight 500
     font-size 0.9em
-    padding 0.25em 0.5em
-    background bg
-    border-radius 20em
     text-decoration none
 
 .shottie-list
-  display none
+  margin-top 0.5em
 
 .shottie
   position relative
   z-index 500
   cursor pointer
   display inline-block
-  height 10vh
-  width (@height * (4/3))vh // 4:3 ratio
-  margin-right 1px
+  height 5em
+  width (@height * (4/3))em // 4:3 ratio
   background bg-light
   overflow hidden
   transition all 300ms bounce
@@ -84,6 +95,7 @@ img
     transition all 300ms bounce
     position relative
     z-index 2
+    width 100%
 .shottie__label
     position absolute
     z-index 3
@@ -100,7 +112,7 @@ img
     opacity 0.5
 
 .shottie--active
-  background primary
+  background secondary
   width 6vh
   svg
     transform translateY(0)
@@ -128,8 +140,8 @@ img
 .socket-state
   position absolute
   z-index 1000
-  top 0em
-  right 0.5em
+  bottom 0em
+  left 0.5em
   li
     width 0.5em
     display inline-block
@@ -191,3 +203,53 @@ img
   100%
     transform scale(1)
     opacity 0
+
+.menu
+  position absolute
+  z-index 1
+  top 0
+  left 0
+  width 100%
+  height 100%
+  overflow-y scroll
+  -webkit-overflow-scrolling touch
+  background bg
+
+.category-menu
+  display none
+  li
+    display inline-block
+    color secondary
+    padding 0.25em 0.5em
+    border 2px solid secondary
+    font-weight 500
+    &:first-child
+      border-right none
+      border-radius 20em 0 0 20em
+    &:last-child
+      border-left none
+      border-radius 0 20em 20em 0
+
+.done-btn
+  background bg
+  font-family font_stack
+  color secondary
+  border 2px solid secondary
+  border-radius 20em
+  font-size 0.9em
+  font-weight 500
+  margin-top 0.5em
+  margin-left 0.5em
+
+.shot-btn
+  @extend .done-btn
+  position absolute
+  top 0
+  left 0
+  color primary
+  border-color primary
+
+.menu-active
+  .bigshot
+  .bigshot__label
+    transform translateY(100%)

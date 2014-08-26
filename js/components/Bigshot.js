@@ -4,7 +4,7 @@
 
 var React = require('react');
 var ImageLoader = require('react-imageloader');
-var Loadie = require('./Loadie');
+var Icon = require('./Icon');
 var ShotStore = require('../stores/ShotStore');
 var AnimGroup = require('react/lib/ReactCSSTransitionGroup');
 
@@ -19,7 +19,9 @@ var Bigshot = React.createClass({
       shot: ShotStore.getActiveShot()
     });
   },
-
+  handleClick: function() {
+    this.props.switch();
+  },
   render: function() {
     var shot = this.state.shot;
     if (!shot) return null;
@@ -29,9 +31,14 @@ var Bigshot = React.createClass({
     };
     return(
         <div className="bigshot">
+          <button className="shot-btn" onClick={this.handleClick}>Shots</button>
           <div className="bigshot__shot" style={styles}/>
           <div className="bigshot__label">
+            <img src={shot.player_image}/>
             <a href={shot.originalPage}>{shot.title}</a>
+          </div>
+          <div className="bigshot__btn">
+            <Icon name="hamburger"/>
           </div>
         </div>
     );

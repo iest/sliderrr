@@ -9,6 +9,7 @@
 var React = require('react');
 window.React = React; // This is so you can use the chrome react inspector
 var key = require('keymaster');
+var cx = require('react/lib/cx');
 
 var ShotStore = require('./stores/ShotStore');
 var ShotActionCreators = require('./actions/ShotActionCreators');
@@ -41,28 +42,43 @@ var App = React.createClass({
     key.unbind('left');
     key.unbind('enter');
   },
-  // Need to pause the slideshow if a user changes the active shot
   _onChange: function() {
     this.setState({
       shots: ShotStore.getAllShots()
     });
   },
+  _handleSwitch: function() {
+    this.setState({
+      menuActive: !this.state.menuActive
+    });
+  },
   getInitialState: function() {
     return {
       shots: [],
-      activeShot: null
+      activeShot: null,
+      menuActive: false
     };
   },
   render: function() {
+    var menuActiveClasses = cx({
+      "container": true,
+      "menu-active": this.state.menuActive
+    });
     return(
-      <div>
+      <div className={menuActiveClasses}>
 
         <SocketState/>
         
-        <Bigshot/>
+        <Bigshot switch={this._handleSwitch}/>
 
-        <div className="shottie-list">
-          <AnimGroup transitionName="anim-shottie">
+        <div className="menu">
+          <ul className="category-menu">
+            <li>Popular</li>
+            <li>Debuts</li>
+            <li>Everyone</li>
+          </ul>
+          <button className="done-btn" onClick={this._handleSwitch}>Done</button>
+          <div className="shottie-list">
             {this.state.shots.map(function(shot) {
               if (!shot) {
                 return null;
@@ -71,7 +87,7 @@ var App = React.createClass({
                 return <Shottie shot={shot} key={shot.id}/>;
               }
             })}
-          </AnimGroup>
+          </div>
         </div>
       </div>
     );

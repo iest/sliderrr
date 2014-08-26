@@ -36,7 +36,7 @@ var Shottie = React.createClass({
         <ImageLoader src={shot.teaser} preloader={preloader}>
         </ImageLoader>
         {shot.isGif ? gif:null}
-        <Icon name="arrow"/>
+        <Icon name="dot"/>
       </a>
     );
   }
