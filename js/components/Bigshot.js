@@ -32,7 +32,7 @@ var Bigshot = React.createClass({
     return(
         <div className="bigshot">
           <button className="shot-btn" onClick={this.handleClick}>Shots</button>
-          <div className="bigshot__shot" style={styles}/>
+          <img className="bigshot__shot" src={shot.image}/>
           <div className="bigshot__label">
             <img src={shot.player_image}/>
             <a href={shot.originalPage}>{shot.title}</a>
