@@ -30,6 +30,8 @@ I'm always looking for an excuse to grok new technologies, and React+Flux are ve
 - Stylus-compiling middleware on the server
 
 ## TODO
+- [ ] Server-side pagination (clinent grinds to a halt on raspberry pi with too many images)
+- [ ] Fix styles on pi version of chromium
 - [ ] Get `Loadie` working nicely
 - [ ] Select different shot categories
 - [ ] Write build script that outputs zip file containing everything needed
