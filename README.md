@@ -4,11 +4,9 @@ A cross-device, collaborative dribbble slideshow viewer thing.
 
 ### Demo
 
-**Check out the demo site: [sliderrr.iestynwilliams.net](http://sliderrr.iestynwilliams.net)**.
+~~**Check out the demo site: [sliderrr.iestynwilliams.net](http://sliderrr.iestynwilliams.net)**.~~
 
-- Open the [demo site](sliderrr.iestynwilliams.net) in two browser windows
-- Select an image from the carousel in one of the windows
-- Clap with glee as both windows show the same image!
+Sorry, the demo is down for the foreseeable future.
 
 ### What it does
 
